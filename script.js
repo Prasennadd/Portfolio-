@@ -1,16 +1,20 @@
 const output = document.getElementById('output');
+const a = document.getElementById('f');
 const fakeInput = document.getElementById('fake-input');
-// const imgContainer = document.getElementById('img');
+const imgg = document.getElementById('imgg');
+const t = document.getElementById('back');
 const inputLine = document.getElementById('input-line');
 const commands = {
-help: 'Available commands:\nhelp - show commands\nabout - about this site\nprojects - process\nskills - pro\nexperience - pro\ncontact - \neducation - pro\ncertifications - pro\nclear - clear screen',
-about: 'pro',
-projects: 'pro',
-skills: 'pro',
-experience: 'pro',
-contact: 'pro',
-education: 'pro',
-certifications: 'pro',
+help: 'Available commands:\nhelp || /help - show commands\nabout -\nprojects -\nskills -\nexperience -\ncontact -\neducation -\ncertifications -\nclear - clear screen',
+about: 'Hi, This is Prasenna Raj,\nA passionate Web Developer,had a good knowledge in Frontend , Backend and API. I enjoy building dynamic web applications , played with DSA and exploring data science.\nType "skills" to see my technical stack \nType "projects" to view my work.',
+hi:"\nHow may I assist you...,\n:), just type help or /help\n...\nDon't type hacker",
+hacker:"Yes, that's me \nHow do u know!!",
+projects: 'Hello, Once again, i had done 4 projects with one embbeded project.\n|Manga reader (Used API call and index searching)\n|Search engine\n|Next word predict(meachine learning based)\n|A on going game project\n|Thristy roots (Which is embedded)',
+skills: 'Technical Skills:\nProgramming Languages:\n|Java |C++ |JavaScript \nWeb Technologies:\n|HTML |CSS |React |.NET |REST API ',
+experience: 'As an engineer, i am eger to learn and explore. Which is why i seeking for job to satitify my part and grow with them.i had done a 4-5 projects',
+contact: 'This is most important part of the site, This is displayed only when u eger to make a touch with me and i will also touch u.\nMy Contact INFO:\nph 91+ 6382025728 \ngmail : prasennadraj@gmail.com\nHence, this is the END, SEE U SOON!!!',
+education: 'As common, i had done 12th , 10th and B.E.\n|12th with score of 80% and \n|10th with score of 83%\nBE ECE current CGPA of 8',
+certifications: 'hello!! Visitor\nI had done \n|Meachine learning ()through instshall\n|IOT (through NPETL)  ',
 date: new Date().toString(),
 };
 
@@ -21,21 +25,29 @@ const hoverTarget = document.getElementById("f");
 let isHovered = false;
 
 document.addEventListener("mousemove", (e) => {
+    
     const rect = mask.getBoundingClientRect();
     const size = isHovered ? 200 : 30;
 
-    // Relative position
+    if(isHovered==true) {
+        mask.style.transition='0.3';
+        mask.style.background='transparent';
+    }
+    else{
+        // mask.style.background='rgb(54, 187, 239)';
+        mask.style.transition='0.3';
+    }
     const x = e.clientX - rect.left - size / 2;
     const y = e.clientY - rect.top - size / 2;
 
     mask.style.maskPosition = `${x}px ${y}px`;
     mask.style.maskSize = `${size}px`;
-    mask.style.transition = 'mask-size 0.2s ease, mask-position 0.1s ease';
+    mask.style.transition = 'mask-size 0.1s ease, mask-position 0.1s ease';
 });
 
 
 hoverTarget.addEventListener("mouseenter", () => {
-
+    // t.style.filter = 'blur(0px)';
     isHovered = true;
 });
 
@@ -70,11 +82,6 @@ document.addEventListener('click', (e) => {
 if (!inputLine.contains(e.target)) {
     setBlinking(false);
 }
-// if (fakeInput.style.display === 'none') {
-//     setBlinking(true);}
-// else if(!fakeInput.contains(e.target)){
-//     setBlinking(false);
-// }
 });
 
 fakeInput.focus();
@@ -85,17 +92,30 @@ if (e.key === 'Enter') {
     const input = fakeInput.innerText.trim();
     // input.innerHTML.style.margin='2px';
     appendOutput(`user@site:~$ ${input}`);
-
-    if (input === 'clear') {
+    const firstWord = input.split(" ")[0].toLowerCase();
+    if (input.toLowerCase() === 'clear') {
     fakeInput.innerText = '';
     output.innerHTML = '';
     imgContainer.innerHTML = '';
-    
-    // continue
-    } else if (commands[input]) {
-    appendOutput(commands[input]);
-    } else {
-    appendOutput(`Command not found: ${input}`);
+    }
+    else if(firstWord.toLowerCase()=='hi' || firstWord.toLowerCase()=='hii'|| firstWord.toLowerCase()=='hello')
+    {
+        // console.log("nn");
+        append(`${firstWord},${commands['hi']}`);
+        appendOutputAnimated(`${firstWord},${commands['hi']}`);
+    }
+    else if(input.toLowerCase()=='help' || input.toLowerCase()=='/help')
+    {
+        append(commands['help']);
+        appendOutputAnimated(commands['help']);
+    }
+    else if (commands[input.toLowerCase()]) 
+    {
+        append(commands[input.toLowerCase()]);
+        appendOutputAnimated(commands[input.toLowerCase()]);
+    } else 
+    {
+        appendOutputAnimated(`Command not found: ${input}`);
     }
     const B=document.createElement('div');
     B.style.marginBottom='10px';
@@ -103,6 +123,72 @@ if (e.key === 'Enter') {
     fakeInput.innerText = '';
 }
 });
+function appendOutputAnimated(text) {
+    const line = document.createElement('div');
+    output.appendChild(line);
+
+    let i = 0;
+    const interval = setInterval(() => {
+        line.textContent += text.charAt(i);
+        i++;
+        if (i >= text.length) {
+        clearInterval(interval);
+        const spacer = document.createElement('div');
+        spacer.style.marginBottom = '10px';
+        output.appendChild(spacer);
+        output.scrollTop = output.scrollHeight;
+    }
+  }, 50); // Adjust speed here (in ms per character)
+    output.scrollTop = output.scrollHeight;
+
+  // Create full-screen div
+//   const fullDiv = document.createElement('div');
+//   fullDiv.style.position = 'fixed';
+//   fullDiv.style.top = '0';
+//   fullDiv.style.left = '0';
+//   fullDiv.style.width = '100vw';
+//   fullDiv.style.height = '100vh';
+//   fullDiv.style.background = 'rgba(0, 0, 0, 0.9)';
+//   fullDiv.style.display = 'flex';
+//   fullDiv.style.justifyContent = 'center';
+//   fullDiv.style.alignItems = 'center';
+//   fullDiv.style.zIndex = '9999';
+//   fullDiv.style.color = 'white';
+
+  // Add h1 with input text
+  const h1 = document.createElement('h1');
+  h1.textContent = text;
+  h1.style.fontSize = '3rem';
+  h1.style.fontFamily = 'monospace';
+
+//   fullDiv.appendChild(h1);
+//   document.body.appendChild(fullDiv);
+}
+
+
+const g = document.getElementById('g');
+
+// t.style.filter = 'blur(5px)'; 
+t.style.opacity = '0';
+t.style.transition = 'opacity 0.5s ease-in-out, box-shadow 0.3s ease-in-out, border 0.3s ease-in-out';
+
+imgg.addEventListener("mouseenter", () => {
+    t.style.opacity = '1';
+    t.style.borderRadius = '40px';
+    t.style.boxShadow = '0 4px 20px rgba(0, 0, 0, 0.5)';
+    g.style.border = 'none';
+});
+
+imgg.addEventListener("mouseleave", () => {
+    t.style.opacity = '0';
+    // t.style.filter = 'blur(5px)'; 
+    t.style.boxShadow = '0 0 0 transparent';
+    g.style.border = '2px solid white';
+});
+
+
+
+
 
 function appendOutput(text) {
   const line = document.createElement('div');
@@ -113,7 +199,28 @@ function appendOutput(text) {
   
   output.scrollTop = output.scrollHeight;
 }
+function append(text) {
+  const line = document.createElement('div');
+  output.appendChild(line);
 
+  const totalBars = 20;
+  let filledBars = 0;
+
+  // Use same timing as appendOutputAnimated
+  const typingSpeed = 50; // same as animated typing
+  const textDuration = text.length * typingSpeed; // total time to type text
+  const intervalTime = textDuration / totalBars;
+
+  const interval = setInterval(() => {
+    const progress = '#'.repeat(filledBars).padEnd(totalBars, '-');
+    line.textContent = `[${progress}]`;
+    filledBars++;
+
+    if (filledBars > totalBars) {
+      clearInterval(interval);
+    }
+  }, intervalTime);
+}
 
 // Resizer
 const terminal = document.getElementById('terminal');

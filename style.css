@@ -4,6 +4,8 @@
     font-family: monospace;
     background-color: #000;
     color: #33ff33;
+    font-size: 15px;
+
     overflow: hidden;
     /* border: 2px solid red; */
     /* background: white; */
@@ -20,7 +22,7 @@
     width: 900px;
     min-width: 600px;
     max-width: 60%;
-    height: 100%;
+    height: 100vh;
     background-color: #000;
     padding: 15px;
     box-sizing: border-box;
@@ -28,7 +30,8 @@
     position: relative;
     display: flex;
     flex-direction: column;
-    border-right: 2px solid #33ff33;
+    /* border-right: 2px solid #33ff33; */
+    /* border: 2px solid #33ff33; */
     }
 
     #output {
@@ -104,40 +107,37 @@
   right: 0;
   z-index: 10; /* ensure it's above content */
 }
-
-
+#g{
+  width: 300px;
+  position: absolute;
+  height: 400px;
+  background: transparent;
+  border-radius: 15px;
+  border: 2px solid white;
+}
 #imgg {
     flex-grow: 1;
     display: flex;
     align-items: center;
     justify-content: center;
     flex-direction: column;
+    background: #596959;
     height: 100vh;
     min-width: 200px;
+    /* border: 2px solid red; */
 }
-
-/* #imgg{
-    
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 100vh;
-    width: 600px;
-    min-width: 600px;
-    max-width: 70%;
-    flex-direction: column;
-} */
-
 #front{
     position: absolute;
-    border:2px solid red;
+    /* border:2px solid red; */
+    /* background-color: #33f; */
     mask-image: url("files/mask.svg");
-    background: rgb(54, 187, 239);
+    background: transparent;
     mask-repeat: no-repeat;
     mask-size: 50px;
-    height: 100vh;
-    width: 100vw;
+    height: 200vh;
+    /* width: 100vw; */
     display: flex;
+    transition: 0.5 ease-in-out;
     align-items: center;
     justify-content: center;
 }
