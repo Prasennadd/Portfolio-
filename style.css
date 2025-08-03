@@ -5,8 +5,8 @@
     background-color: #000;
     color: #33ff33;
     font-size: 15px;
-
-    overflow: hidden;
+    overflow-x: hidden;
+    overflow-y: hidden;
     /* border: 2px solid red; */
     /* background: white; */
     /* cursor: url(files/mask.svg),auto; */
@@ -15,6 +15,7 @@
     #container {
     display: flex;
     height: 100vh;
+    border: 7px soild red;
     width: 100vw;
     }
 
@@ -22,7 +23,7 @@
     width: 900px;
     min-width: 600px;
     max-width: 60%;
-    height: 100vh;
+    height: auto;
     background-color: #000;
     padding: 15px;
     box-sizing: border-box;
@@ -33,7 +34,11 @@
     /* border-right: 2px solid #33ff33; */
     /* border: 2px solid #33ff33; */
     }
-
+    .main{
+      display: flex;
+      /* border: 2px solid red; */
+      flex-direction: column;
+    }
     #output {
     flex-grow: 1;
     /* margin: 30px; */
@@ -122,7 +127,7 @@
     justify-content: center;
     flex-direction: column;
     background: #596959;
-    height: 100vh;
+    height: auto;
     min-width: 200px;
     /* border: 2px solid red; */
 }

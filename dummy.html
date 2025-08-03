@@ -1,77 +1,27 @@
-<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Single Download Progress</title>
-  <style>
-    body {
-      background: #1e1e2f;
-      color: white;
-      font-family: monospace;
-      padding: 20px;
-    }
-
-    .progress-bar {
-      background: #333;
-      border-radius: 5px;
-      overflow: hidden;
-      width: 400px;
-      margin-top: 20px;
-      position: relative;
-      height: 20px;
-    }
-
-    .fill {
-      background: linear-gradient(to right, #00bfff, #32cd32, #ffcc00, #ff4500);
-      height: 100%;
-      width: 0;
-      transition: width 0.3s;
-    }
-
-    .label {
-      position: absolute;
-      top: 0;
-      left: 10px;
-      font-size: 12px;
-      line-height: 20px;
-    }
-  </style>
+  <title>Document</title>
 </head>
 <body>
-  <h2>Single File Download</h2>
-  <input type="number" id="fileSize" placeholder="Enter file size (MiB)" />
-  <button onclick="startDownload()">Start Download</button>
-
-  <div class="progress-bar">
-    <div class="fill"></div>
-    <span class="label">[--------------------]</span>
+  <div style="width: 100vw; height: 100vh; background: black; color: antiquewhite;">
+  <button onclick="press()" >PRESS</button>
   </div>
-
+  <div id="below"></div>
   <script>
-    function startDownload() {
-    //   const fill = document.querySelector('.fill');
-      const label = document.querySelector('.label');
-      const totalSize = parseFloat(document.getElementById('fileSize').value) || 50;
-
-      let progress = 0;
-      const speed = Math.random() * 2 + 1; // MiB per step
-      let seconds = 0;
-
-      const interval = setInterval(() => {
-        if (progress >= 100) {
-          clearInterval(interval);
-          label.textContent = `[####################]`;
-        } else {
-          progress += (speed / totalSize) * 100;
-          seconds++;
-        //   fill.style.width = `${Math.min(progress, 100)}%`;
-
-          const bars = '#'.repeat(Math.floor(progress / 5)).padEnd(20, '-');
-        //   const downloaded = ((totalSize * progress) / 100).toFixed(1);
-          label.textContent = `[${bars}]`;
-        }
-      }, 300);
+    const below=document.getElementById('below');
+    function press()
+    {
+    below.style.display = 'block';
+    below.style.width = '100%';
+    below.style.height = '100vh';
+    below.style.minHeight = '100px';
+    below.style.background = 'blue';
+    below.style.position = 'relative';
+    below.style.marginTop = '20px';
+    below.style.overflow = 'auto';
+    below.textContent = `This is the ${input} section`; // add content
     }
   </script>
 </body>

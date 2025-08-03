@@ -5,7 +5,7 @@ const imgg = document.getElementById('imgg');
 const t = document.getElementById('back');
 const inputLine = document.getElementById('input-line');
 const commands = {
-help: 'Available commands:\nhelp || /help - show commands\nabout -\nprojects -\nskills -\nexperience -\ncontact -\neducation -\ncertifications -\nclear - clear screen',
+help: 'Available commands:\nhelp - show commands\nabout -\nprojects -\nskills -\nexperience -\ncontact -\neducation -\ncertifications -\nclear - clear screen',
 about: 'Hi, This is Prasenna Raj,\nA passionate Web Developer,had a good knowledge in Frontend , Backend and API. I enjoy building dynamic web applications , played with DSA and exploring data science.\nType "skills" to see my technical stack \nType "projects" to view my work.',
 hi:"\nHow may I assist you...,\n:), just type help or /help\n...\nDon't type hacker",
 hacker:"Yes, that's me \nHow do u know!!",
@@ -17,7 +17,6 @@ education: 'As common, i had done 12th , 10th and B.E.\n|12th with score of 80% 
 certifications: 'hello!! Visitor\nI had done \n|Meachine learning ()through instshall\n|IOT (through NPETL)  ',
 date: new Date().toString(),
 };
-
 
 const mask = document.getElementById("front");
 const hoverTarget = document.getElementById("f");
@@ -47,7 +46,6 @@ document.addEventListener("mousemove", (e) => {
 
 
 hoverTarget.addEventListener("mouseenter", () => {
-    // t.style.filter = 'blur(0px)';
     isHovered = true;
 });
 
@@ -64,12 +62,10 @@ if (active) {
     console.log("true");
     fakeInput.style.opacity= '1';
     inputLine.classList.remove('hover-border');
-    // blink.classList.add('blinking');
 } else {
     console.log("false");
     fakeInput.style.opacity = '0';
     inputLine.classList.add('hover-border');
-    // blink.classList.remove('blinking');
 }
 }
 
@@ -83,28 +79,27 @@ if (!inputLine.contains(e.target)) {
     setBlinking(false);
 }
 });
-
+const body = document.body;
+// -----------------------------terminal output-----------------------------
 fakeInput.focus();
-
 fakeInput.addEventListener('keydown', (e) => {
 if (e.key === 'Enter') {
     e.preventDefault();
+
     const input = fakeInput.innerText.trim();
-    // input.innerHTML.style.margin='2px';
     appendOutput(`user@site:~$ ${input}`);
     const firstWord = input.split(" ")[0].toLowerCase();
     if (input.toLowerCase() === 'clear') {
     fakeInput.innerText = '';
     output.innerHTML = '';
-    imgContainer.innerHTML = '';
+    body.style.overflow='hidden';
+    // imgContainer.innerHTML = '';
     }
-    else if(firstWord.toLowerCase()=='hi' || firstWord.toLowerCase()=='hii'|| firstWord.toLowerCase()=='hello')
-    {
-        // console.log("nn");
+    else if(['hi', 'hii', 'hello'].includes(firstWord)){
         append(`${firstWord},${commands['hi']}`);
         appendOutputAnimated(`${firstWord},${commands['hi']}`);
     }
-    else if(input.toLowerCase()=='help' || input.toLowerCase()=='/help')
+    else if(['/help', 'help'].includes(input.toLowerCase()))
     {
         append(commands['help']);
         appendOutputAnimated(commands['help']);
@@ -113,14 +108,33 @@ if (e.key === 'Enter') {
     {
         append(commands[input.toLowerCase()]);
         appendOutputAnimated(commands[input.toLowerCase()]);
+        
     } else 
     {
         appendOutputAnimated(`Command not found: ${input}`);
+    }
+    if(['skills','projects','contact','education','certifications'].includes(input.toLowerCase()))
+    {
+      
+      const below=document.getElementById('below');
+    below.style.display = 'block';
+    below.style.width = '100%';
+    below.style.height = '800px';
+    below.style.minHeight = '100px';
+    below.style.background = 'blue';
+    below.style.position = 'relative';
+    below.style.marginTop = '20px';
+    body.style.overflowX = 'hidden'; 
+    body.style.overflowY = 'auto';
+    below.textContent = `This is the ${input} section`;
+
+      // console.log("okk");
     }
     const B=document.createElement('div');
     B.style.marginBottom='10px';
     output.appendChild(B);
     fakeInput.innerText = '';
+
 }
 });
 function appendOutputAnimated(text) {
@@ -138,37 +152,18 @@ function appendOutputAnimated(text) {
         output.appendChild(spacer);
         output.scrollTop = output.scrollHeight;
     }
-  }, 50); // Adjust speed here (in ms per character)
+  }, 50);
     output.scrollTop = output.scrollHeight;
 
-  // Create full-screen div
-//   const fullDiv = document.createElement('div');
-//   fullDiv.style.position = 'fixed';
-//   fullDiv.style.top = '0';
-//   fullDiv.style.left = '0';
-//   fullDiv.style.width = '100vw';
-//   fullDiv.style.height = '100vh';
-//   fullDiv.style.background = 'rgba(0, 0, 0, 0.9)';
-//   fullDiv.style.display = 'flex';
-//   fullDiv.style.justifyContent = 'center';
-//   fullDiv.style.alignItems = 'center';
-//   fullDiv.style.zIndex = '9999';
-//   fullDiv.style.color = 'white';
 
-  // Add h1 with input text
   const h1 = document.createElement('h1');
   h1.textContent = text;
   h1.style.fontSize = '3rem';
   h1.style.fontFamily = 'monospace';
-
-//   fullDiv.appendChild(h1);
-//   document.body.appendChild(fullDiv);
 }
 
 
 const g = document.getElementById('g');
-
-// t.style.filter = 'blur(5px)'; 
 t.style.opacity = '0';
 t.style.transition = 'opacity 0.5s ease-in-out, box-shadow 0.3s ease-in-out, border 0.3s ease-in-out';
 
@@ -181,7 +176,6 @@ imgg.addEventListener("mouseenter", () => {
 
 imgg.addEventListener("mouseleave", () => {
     t.style.opacity = '0';
-    // t.style.filter = 'blur(5px)'; 
     t.style.boxShadow = '0 0 0 transparent';
     g.style.border = '2px solid white';
 });
