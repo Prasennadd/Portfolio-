@@ -3,26 +3,36 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
+  <style>
+  * {
+    margin: 0;
+    padding: 0;
+  }
+
+  #main, #below {
+    width: 100vw;
+    height: 100vh;
+  }
+
+  #below {
+    display: none;
+  }
+  </style>
 </head>
 <body>
-  <div style="width: 100vw; height: 100vh; background: black; color: antiquewhite;">
+  <div id="main" style="width: 100vw; height: 100vh; background: black; color: antiquewhite;">
   <button onclick="press()" >PRESS</button>
   </div>
   <div id="below"></div>
   <script>
     const below=document.getElementById('below');
-    function press()
-    {
-    below.style.display = 'block';
-    below.style.width = '100%';
-    below.style.height = '100vh';
-    below.style.minHeight = '100px';
-    below.style.background = 'blue';
-    below.style.position = 'relative';
-    below.style.marginTop = '20px';
-    below.style.overflow = 'auto';
-    below.textContent = `This is the ${input} section`; // add content
-    }
+function press() {
+  below.style.display = 'block';
+  below.style.background = 'blue';
+  below.style.position = 'relative';
+  below.style.overflow = 'auto';
+  below.textContent = `This is the section`;
+}
   </script>
 </body>
 </html>

@@ -115,20 +115,7 @@ if (e.key === 'Enter') {
     }
     if(['skills','projects','contact','education','certifications'].includes(input.toLowerCase()))
     {
-      
-      const below=document.getElementById('below');
-    below.style.display = 'block';
-    below.style.width = '100%';
-    below.style.height = '800px';
-    below.style.minHeight = '100px';
-    below.style.background = 'blue';
-    below.style.position = 'relative';
-    below.style.marginTop = '20px';
-    body.style.overflowX = 'hidden'; 
-    body.style.overflowY = 'auto';
-    below.textContent = `This is the ${input} section`;
-
-      // console.log("okk");
+      belowdiv(input);
     }
     const B=document.createElement('div');
     B.style.marginBottom='10px';
