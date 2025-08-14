@@ -1,6 +1,6 @@
 function belowdiv(input) {
-    const below = document.getElementById('below');
-    
+
+    below.innerText='';
     // Style the below container
     below.style.display = 'flex';
     below.style.justifyContent = 'center';
@@ -24,4 +24,20 @@ function belowdiv(input) {
 
     // Append the centered div to the "below" container
     below.appendChild(centerDiv);
+
+below.addEventListener("mouseenter", () => {
+    style.textContent = `
+    body::-webkit-scrollbar-thumb {
+        background: transparent;
+    }
+    `;
+    document.head.appendChild(style);
+    // console.log("testing");
+});
+
+below.addEventListener("mouseleave", () => {
+    if (document.head.contains(style)) {
+        document.head.removeChild(style);
+    }
+});
 }

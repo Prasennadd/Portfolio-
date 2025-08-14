@@ -17,6 +17,14 @@
   #below {
     display: none;
   }
+
+@media (max-width: 768px) {
+    #main{
+      /* height: 300px; */
+      /* background-color: blueviolet; */
+      display: none;
+    }
+}
   </style>
 </head>
 <body>
@@ -27,6 +35,8 @@
   <script>
     const below=document.getElementById('below');
 function press() {
+    // main.style.display = 'none'; // hide main
+  // below.style.display = 'block';
   below.style.display = 'block';
   below.style.background = 'blue';
   below.style.position = 'relative';

@@ -3,6 +3,8 @@ const a = document.getElementById('f');
 const fakeInput = document.getElementById('fake-input');
 const imgg = document.getElementById('imgg');
 const t = document.getElementById('back');
+const style = document.createElement('style');
+const below = document.getElementById('below');
 const inputLine = document.getElementById('input-line');
 const commands = {
 help: 'Available commands:\nhelp - show commands\nabout -\nprojects -\nskills -\nexperience -\ncontact -\neducation -\ncertifications -\nclear - clear screen',
