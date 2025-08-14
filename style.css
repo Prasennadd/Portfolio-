@@ -85,49 +85,40 @@
     0%, 50% { opacity: 1; }
     50.1%, 100% { opacity: 0; }
     }
-@media (max-width: 1024px) {
-  #terminal {
-    flex: 1 1 100%;
-    height: auto;
-  }
-  #imgg {
-    flex: 1 1 100%;
-  }
-}
 
 @media (max-width: 768px) {
-  body {
-    font-size: 14px;
-  }
-  #terminal {
-    padding: 10px;
-  }
-  #imgg {
-    padding: 5px;
-  }
-}
-
-@media (max-width: 480px) {
-  body {
-    font-size: 13px;
-  }
-  .prompt {
-    font-size: 12px;
-  }
-}
-
-/* iPhone SE 2020 and similar small screens */
-@media (max-width: 400px) {
-  body {
-    font-size: 12px;
+  #container {
+    flex-direction: column;
   }
 
   #terminal {
+    width: 100%;
+    max-width: none;
     min-width: 100%;
-    padding: 8px;
+    height: 60vh;
   }
 
   #imgg {
+    height: 40vh;
+  }
+}
+/* iPhone SE 2020 and similar screens */
+@media (max-width: 400px) {
+  #container {
+    flex-direction: column;
+  }
+
+  #terminal {
+    width: 100%;
+    max-width: none;
+    min-width: 100%;
+    height: 55vh; /* slightly less to avoid scroll cut-off */
+    padding: 8px; /* tighter padding for small screens */
+    font-size: 12px; /* reduce font for better fit */
+  }
+
+  #imgg {
+    height: 45vh;
     min-width: 100%;
     padding: 5px;
   }
@@ -138,8 +129,11 @@
 
   #imgg img {
     max-width: 90%;
+    height: auto;
   }
 }
+
+
 #resizer {
   width: 5px; /* easier to click */
   background-color: #4c7f83;
@@ -184,6 +178,7 @@
     align-items: center;
     justify-content: center;
 }
+
 
 
 
