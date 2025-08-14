@@ -101,6 +101,34 @@
     height: 40vh;
   }
 }
+/* iPhone SE 2020 and similar small screens */
+@media (max-width: 400px) {
+    table {
+        max-width: 100%;
+        margin: auto;
+    }
+
+    td {
+        width: 10px;
+        height: 10px;
+    }
+
+    #refresh-button {
+        font-size: 12px;
+        padding: 4px 8px;
+    }
+
+    a {
+        font-size: 12px;
+    }
+
+    .head {
+        flex-direction: column;
+        align-items: center;
+        gap: 4px;
+    }
+}
+
 
 #resizer {
   width: 5px; /* easier to click */
@@ -146,4 +174,6 @@
     align-items: center;
     justify-content: center;
 }
+
+
 
