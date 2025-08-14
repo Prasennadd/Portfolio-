@@ -1,6 +1,6 @@
 function belowdiv(input) {
 
-    below.innerText='';
+    below.innerText="";
     // Style the below container
     below.style.display = 'flex';
     below.style.justifyContent = 'center';
