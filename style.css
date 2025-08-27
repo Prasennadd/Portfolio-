@@ -69,6 +69,7 @@ body::-webkit-scrollbar-thumb {
 
     .prompt {
     margin-right: 5px;
+    color: blue;
     }
     /* Add this inside your <style> tag or CSS file */
     .hover-border:hover {

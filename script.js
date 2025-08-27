@@ -83,49 +83,103 @@ if (!inputLine.contains(e.target)) {
 });
 const body = document.body;
 // -----------------------------terminal output-----------------------------
-fakeInput.focus();
-fakeInput.addEventListener('keydown', (e) => {
-if (e.key === 'Enter') {
-    e.preventDefault();
+const use_r='user@site:~$ ';
+// o.color='blue';
+// console.log(o.color);
+let i=0;
+if(i==0)
+{
+  i++;
+  appendOutput(use_r);
+  appendOutput(`Welcome`);
+  appendOutputAnimated(`Hello!, I'm Manova Prasenna Raj, a Software Engineer & AI Enthusiast. \nWelcome to my interactive portfolio terminal, \nType 'help' to see avaiable commands.  `);
+}
 
+fakeInput.focus();
+// // ------------------- Command History -------------------
+let history = [];
+let historyIndex = -1;
+
+fakeInput.addEventListener('keydown', (e) => {
+  // ↑ UP ARROW (previous command)
+  if (e.key === "ArrowUp") {
+    e.preventDefault();
+    if (history.length > 0 && historyIndex > 0) {
+      historyIndex--;
+      fakeInput.innerText = history[historyIndex];
+    } else if (historyIndex === -1 && history.length > 0) {
+      historyIndex = history.length - 1;
+      fakeInput.innerText = history[historyIndex];
+    }
+    return;
+  }
+
+  // ↓ DOWN ARROW (next command)
+  if (e.key === "ArrowDown") {
+    e.preventDefault();
+    if (history.length > 0 && historyIndex < history.length - 1) {
+      historyIndex++;
+      fakeInput.innerText = history[historyIndex];
+    } else {
+      historyIndex = history.length;
+      fakeInput.innerText = "";
+    }
+    return;
+  }
+
+  // ENTER KEY (execute command)
+  if (e.key === 'Enter') {
+    e.preventDefault();
     const input = fakeInput.innerText.trim();
-    appendOutput(`user@site:~$ ${input}`);
+
+    // save to history if not empty
+    if (input) {
+      history.push(input);
+      historyIndex = history.length; // reset index
+    }
+
+    if (i == 1) {
+      output.innerHTML = '';  
+      i++;
+    }
+
+    appendOutput(use_r);
+    appendOutput(`${input}`);
     const firstWord = input.split(" ")[0].toLowerCase();
+
     if (input.toLowerCase() === 'clear') {
-    fakeInput.innerText = '';
-    output.innerHTML = '';
-    body.style.overflow='hidden';
-    // imgContainer.innerHTML = '';
+      fakeInput.innerText = '';
+      output.innerHTML = '';
+      body.style.overflow='hidden';
     }
-    else if(['hi', 'hii', 'hello'].includes(firstWord)){
-        append(`${firstWord},${commands['hi']}`);
-        appendOutputAnimated(`${firstWord},${commands['hi']}`);
+    else if (['hi', 'hii', 'hello'].includes(firstWord)) {
+      append(`${firstWord},${commands['hi']}`);
+      appendOutputAnimated(`${firstWord},${commands['hi']}`);
     }
-    else if(['/help', 'help'].includes(input.toLowerCase()))
-    {
-        append(commands['help']);
-        appendOutputAnimated(commands['help']);
+    else if (['/help', 'help'].includes(input.toLowerCase())) {
+      append(commands['help']);
+      appendOutputAnimated(commands['help']);
     }
-    else if (commands[input.toLowerCase()]) 
-    {
-        append(commands[input.toLowerCase()]);
-        appendOutputAnimated(commands[input.toLowerCase()]);
-        
-    } else 
-    {
-        appendOutputAnimated(`Command not found: ${input}`);
+    else if (commands[input.toLowerCase()]) {
+      append(commands[input.toLowerCase()]);
+      appendOutputAnimated(commands[input.toLowerCase()]);
+    } 
+    else {
+      appendOutputAnimated(`Command not found: ${input}`);
     }
-    if(['skills','projects','contact','education','certifications'].includes(input.toLowerCase()))
-    {
+
+    if (['skills','projects','contact','education','certifications'].includes(input.toLowerCase())) {
       belowdiv(input);
     }
-    const B=document.createElement('div');
-    B.style.marginBottom='10px';
-    output.appendChild(B);
-    fakeInput.innerText = '';
 
-}
+    const B = document.createElement('div');
+    B.style.marginBottom = '10px';
+    output.appendChild(B);
+
+    fakeInput.innerText = ''; // clear after execution
+  }
 });
+
 function appendOutputAnimated(text) {
     const line = document.createElement('div');
     output.appendChild(line);
@@ -174,11 +228,26 @@ imgg.addEventListener("mouseleave", () => {
 
 
 function appendOutput(text) {
-  const line = document.createElement('div');
   
-  line.textContent = text;
-  line.style.marginBottom = '2px'; // Apply margin here
-  output.appendChild(line);
+  if(text==use_r)
+  {
+    const line = document.createElement('span');
+    line.style.color='blue';
+    line.textContent = text;
+    line.style.marginBottom = '2px'; // Apply margin here
+    output.appendChild(line);
+  }
+  else{
+    const line = document.createElement('span');
+    line.style.color='#33ff33';
+    line.style.display='inline';
+    line.textContent = text;
+    line.style.marginBottom = '2px'; // Apply margin here
+    output.appendChild(line);
+    
+  }
+
+  
   
   output.scrollTop = output.scrollHeight;
 }
