@@ -16,7 +16,32 @@ body::-webkit-scrollbar {
   /* background: transparent; */
   width: 5px;
 }
+#terminal {
+  display: flex;
+  flex-direction: column;
+  height: 500px; /* or whatever height you're already using */
+  overflow: hidden; /* terminal itself doesn't scroll, output does */
+}
 
+#output {
+  flex: 1;
+  overflow-y: auto; /* this is what scrolls, not the whole terminal */
+}
+#input-line {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  background: #111;              /* slightly lighter/darker than terminal bg — pick to taste */
+  border-radius: 8px;
+  padding: 8px 12px;
+  margin: 8px;                   /* so it doesn't touch the terminal edges */
+  border: 1px solid #2a2a2a;     /* subtle outline, optional */
+}
+#input-line {
+  flex-shrink: 0; /* prevents it from getting squished */
+  display: flex;
+  align-items: center;
+}
 body::-webkit-scrollbar-track {
   background: #000;
 }
@@ -83,11 +108,31 @@ body::-webkit-scrollbar-thumb {
     background: none;
     border: none;
     color: #33ff33;
+    min-width: 0;
     outline: none;
     flex-grow: 1;
     caret-color: transparent;
     }
+#input-line {
+  display: flex;
+  align-items: center;
+  flex-wrap: nowrap;
+}
 
+.prompt {
+  white-space: nowrap;
+  flex-shrink: 0;
+  margin-right: 8px;
+}
+
+#fake-input {
+  display: inline-block;
+  flex: 1;
+  min-width: 0;        /* important: without this, flex items can refuse to shrink and force wrap */
+  outline: none;
+  white-space: pre;
+  word-break: break-all;
+}
     #fake-input::after {
     content: '';
     display: inline-block;

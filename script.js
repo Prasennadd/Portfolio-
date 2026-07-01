@@ -1,3 +1,4 @@
+// import { belowdiv } from "/.below.js";
 const output = document.getElementById('output');
 const a = document.getElementById('f');
 const fakeInput = document.getElementById('fake-input');
@@ -18,6 +19,11 @@ contact: 'This is most important part of the site, This is displayed only when u
 education: 'As common, i had done 12th , 10th and B.E.\n|12th with score of 80% and \n|10th with score of 83%\nBE ECE current CGPA of 8',
 certifications: 'hello!! Visitor\nI had done \n|Meachine learning ()through instshall\n|IOT (through NPETL)  ',
 date: new Date().toString(),
+whoami: 'manova_prasenna_raj\nrole: Software Engineer & AI Enthusiast',
+pwd: '/home/manova/portfolio',
+social: 'GitHub  : github.com/yourusername\nLinkedIn: linkedin.com/in/yourusername\nEmail   : prasennadraj@gmail.com',
+ls: 'resume.img \nJust type resume.img to open the img',
+'resume.img':'',
 };
 
 const mask = document.getElementById("front");
@@ -46,7 +52,18 @@ document.addEventListener("mousemove", (e) => {
     mask.style.transition = 'mask-size 0.1s ease, mask-position 0.1s ease';
 });
 
-
+function checkScrollHint() {
+  if (output.scrollHeight > output.clientHeight) {
+    const hint = document.createElement('div');
+    hint.textContent = "💡 Tip: type 'clear' to clear the screen";
+    hint.style.color = '#888';
+    hint.style.fontStyle = 'italic';
+    hint.style.marginTop = '4px';
+    hint.style.marginBottom = '4px';
+    output.appendChild(hint);
+    output.scrollTop = output.scrollHeight;
+  }
+}
 hoverTarget.addEventListener("mouseenter", () => {
     isHovered = true;
 });
@@ -76,6 +93,12 @@ fakeInput.addEventListener('focus', () => setBlinking(true));
 fakeInput.addEventListener('click', () => setBlinking(true));
 inputLine.addEventListener('click', () => setBlinking(true));
 // Stop blinking when clicking outside
+
+fakeInput.addEventListener('input', () => {
+  if (fakeInput.innerText.trim() === '') {
+    fakeInput.innerHTML = '';
+  }
+});
 document.addEventListener('click', (e) => {
 if (!inputLine.contains(e.target)) {
     setBlinking(false);
@@ -150,7 +173,7 @@ fakeInput.addEventListener('keydown', (e) => {
     if (input.toLowerCase() === 'clear') {
       fakeInput.innerText = '';
       output.innerHTML = '';
-      body.style.overflow='hidden';
+      // body.style.overflow='hidden';
     }
     else if (['hi', 'hii', 'hello'].includes(firstWord)) {
       append(`${firstWord},${commands['hi']}`);
@@ -160,6 +183,17 @@ fakeInput.addEventListener('keydown', (e) => {
       append(commands['help']);
       appendOutputAnimated(commands['help']);
     }
+else if (input.toLowerCase() === 'resume.img') {
+  const img = document.createElement('img');
+  img.src = './files/resume.png'; // update path/extension to match your converted file
+  img.style.maxWidth = '440px';
+  img.style.maxHeight = '700px';
+  img.style.borderRadius = '6px';
+  img.style.display = 'block';
+  img.style.marginTop = '8px';
+  output.appendChild(img);
+  output.scrollTop = output.scrollHeight;
+}
     else if (commands[input.toLowerCase()]) {
       append(commands[input.toLowerCase()]);
       appendOutputAnimated(commands[input.toLowerCase()]);
@@ -175,7 +209,6 @@ fakeInput.addEventListener('keydown', (e) => {
     const B = document.createElement('div');
     B.style.marginBottom = '10px';
     output.appendChild(B);
-
     fakeInput.innerText = ''; // clear after execution
   }
 });
@@ -194,6 +227,7 @@ function appendOutputAnimated(text) {
         spacer.style.marginBottom = '10px';
         output.appendChild(spacer);
         output.scrollTop = output.scrollHeight;
+        checkScrollHint();
     }
   }, 50);
     output.scrollTop = output.scrollHeight;
