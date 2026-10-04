@@ -8,26 +8,56 @@ const style = document.createElement('style');
 const below = document.getElementById('below');
 const inputLine = document.getElementById('input-line');
 const commands = {
-help: 'Available commands:\nhelp - show commands\nabout -\nprojects -\nskills -\nexperience -\ncontact -\neducation -\ncertifications -\nclear - clear screen',
-about: 'Hi, This is Prasenna Raj,\nA passionate Web Developer,had a good knowledge in Frontend , Backend and API. I enjoy building dynamic web applications , played with DSA and exploring data science.\nType "skills" to see my technical stack \nType "projects" to view my work.',
+help: 'Available commands:\nhelp - show commands\nabout - who I am\nprojects - things I have built\nskills - my technical stack\nexperience - practice and achievements\ncontact - how to reach me\neducation - my degrees\ncertifications - certificates and achievements\nresume.img - view resume\nclear - clear screen',
+about: 'Hi, This is Prasenna Raj,\n\nA passionate problem solver, programmer, computer networking enthusiast, and web developer with good knowledge of frontend, backend, and APIs. I enjoy building dynamic web applications, solving DSA problems, exploring computer networking, and learning about endpoint security.\n\n💡 Tip: type "skills" to see my technical stack.\n💡 Tip: type "projects" to view my work.',
 hi:"\nHow may I assist you...,\n:), just type help or /help\n...\nDon't type hacker",
 hacker:"Yes, that's me \nHow do u know!!",
-projects: 'Hello, Once again, i had done 4 projects with one embbeded project.\n|Manga reader (Used API call and index searching)\n|Search engine\n|Next word predict(meachine learning based)\n|A on going game project\n|Thristy roots (Which is embedded)',
-skills: 'Technical Skills:\nProgramming Languages:\n|Java |C++ |JavaScript \nWeb Technologies:\n|HTML |CSS |React |.NET |REST API ',
-experience: 'As an engineer, i am eger to learn and explore. Which is why i seeking for job to satitify my part and grow with them.i had done a 4-5 projects',
-contact: 'This is most important part of the site, This is displayed only when u eger to make a touch with me and i will also touch u.\nMy Contact INFO:\nph 91+ 6382025728 \ngmail : prasennadraj@gmail.com\nHence, this is the END, SEE U SOON!!!',
-education: 'As common, i had done 12th , 10th and B.E.\n|12th with score of 80% and \n|10th with score of 83%\nBE ECE current CGPA of 8',
-certifications: 'hello!! Visitor\nI had done \n|Meachine learning ()through instshall\n|IOT (through NPETL)  ',
+projects: '\n[1] Maze Finder (Shortest Path Web) | Jul 2024 - Dec 2024\n    Stack: HTML, CSS, JavaScript, Netlify\n    - Compares DFS vs BFS maze solving with animated path traversal\n    \n    Live: https://maze-finder.netlify.app/\n    GitHub: https://github.com/Prasennadd\n\n[2] NoteVault (Secure Notes Web App) | Mar 2026 - Jun 2026\n    Stack: Spring Boot, MySQL, JWT, HTML, CSS, JavaScript\n    - REST APIs to create, edit, rename and delete notes\n    - IP-based account lockout and single active-session enforcement\n    GitHub: https://github.com/Prasennadd/NoteVault\n\n[3] Exe-Sandbox (Malware Behavior Analysis Lab) | May 2025 - Jan 2026\n    Stack: VirtualBox, Kali Linux, Windows 11, Metasploit\n    - Analyzed Windows endpoint vulnerabilities in an isolated lab\n    - Tested untrusted .exe files safely to find security gaps\n    GitHub: https://github.com/Prasennadd/Endpoint-Vulnerability-Analysis',
+skills: '\nLanguages : C++, Java, Python, JavaScript\nBackend   : Spring Boot, MySQL, REST APIs, JWT\nTools     : Git, GitHub, Ngrok, Kali Linux, Metasploit, Terminal\nConcepts  : Computer Networking, Endpoint Security, DSA',
+
+experience: '\nFresher - open to internships and entry-level roles.\n\nSelf-initiated work:\n- Built 3 projects (web app, full-stack app, security lab)\n- Solved 130+ LeetCode problems',
+
+contact: '\nEmail    : prasennadraj@gmail.com\nLinkedIn : https://linkedin.com/in/prasenna-raj/\nGitHub   : https://github.com/Prasennadd\nLocation : Chennai, India',
+education: '\nB.E. Electronics and Communication Engineering | 2022 - 2026\nSathyabama Institute of Science and Technology, Chennai\n\nHigher Secondary (HSC) | 2021 - 2022\nSFS Matriculation Higher Secondary School, Chengalpattu\n\nSenior Secondary (SSLC) | 2019 - 2020\nSFS Matriculation Higher Secondary School, Chengalpattu',
 date: new Date().toString(),
 whoami: 'manova_prasenna_raj\nrole: Software Engineer & AI Enthusiast',
 pwd: '/home/manova/portfolio',
-social: 'GitHub  : github.com/yourusername\nLinkedIn: linkedin.com/in/yourusername\nEmail   : prasennadraj@gmail.com',
+social: '\nGitHub  : github.com/yourusername\nLinkedIn: linkedin.com/in/yourusername\nEmail   : prasennadraj@gmail.com',
 ls: 'resume.img \nJust type resume.img to open the img',
 'resume.img':'',
 };
 
 const mask = document.getElementById("front");
 const hoverTarget = document.getElementById("f");
+
+const speeds = [
+    { name: 'SLOW', delay: 150 },
+    { name: 'NORMAL', delay: 50 },
+    { name: 'FAST', delay: 15 },
+    { name: 'SUPER FAST', delay: 1 }
+];
+
+let currentSpeed = 1;
+
+const speedControl = document.getElementById('speed-control');
+const speedValue = document.getElementById('speed-value');
+
+speedControl.addEventListener('click', () => {
+    currentSpeed++;
+
+    if (currentSpeed >= speeds.length) {
+        currentSpeed = 0;
+    }
+
+    speedValue.textContent = speeds[currentSpeed].name;
+
+    console.log(
+        'Speed:',
+        speeds[currentSpeed].name,
+        'Delay:',
+        speeds[currentSpeed].delay
+    );
+});
 
 let isHovered = false;
 
@@ -53,16 +83,24 @@ document.addEventListener("mousemove", (e) => {
 });
 
 function checkScrollHint() {
-  if (output.scrollHeight > output.clientHeight) {
-    const hint = document.createElement('div');
-    hint.textContent = "💡 Tip: type 'clear' to clear the screen";
-    hint.style.color = '#888';
-    hint.style.fontStyle = 'italic';
-    hint.style.marginTop = '4px';
-    hint.style.marginBottom = '4px';
-    output.appendChild(hint);
+    let hint = document.getElementById('scroll-hint');
+
+    if (output.scrollHeight > output.clientHeight) {
+        if (!hint) {
+            hint = document.createElement('div');
+            hint.id = 'scroll-hint';
+            hint.textContent = "💡 Tip: type 'clear' to clear the screen";
+            hint.style.color = '#888';
+            hint.style.fontStyle = 'italic';
+            hint.style.marginTop = '4px';
+            hint.style.marginBottom = '4px';
+            output.appendChild(hint);
+        }
+    } else if (hint) {
+        hint.remove();
+    }
+
     output.scrollTop = output.scrollHeight;
-  }
 }
 hoverTarget.addEventListener("mouseenter", () => {
     isHovered = true;
@@ -115,7 +153,8 @@ if(i==0)
   i++;
   appendOutput(use_r);
   appendOutput(`Welcome`);
-  appendOutputAnimated(`Hello!, I'm Manova Prasenna Raj, a Software Engineer & AI Enthusiast. \nWelcome to my interactive portfolio terminal, \nType 'help' to see avaiable commands.  `);
+  appendOutputAnimated(`Hello!, I'm Manova Prasenna Raj, a passionate fresher with a strong interest in problem-solving, programming, and computer networking. I enjoy exploring new technologies, building practical projects, and continuously improving my technical skills. I am always eager to learn, adapt, and take on new challenges in the technology field. \n💡 Tip: type 'help' to see avaiable commands. `);
+  
 }
 
 fakeInput.focus();
@@ -153,6 +192,8 @@ fakeInput.addEventListener('keydown', (e) => {
   // ENTER KEY (execute command)
   if (e.key === 'Enter') {
     e.preventDefault();
+    currentSpeed = 1;
+    speedValue.textContent = speeds[currentSpeed].name;
     const input = fakeInput.innerText.trim();
 
     // save to history if not empty
@@ -170,7 +211,7 @@ fakeInput.addEventListener('keydown', (e) => {
     appendOutput(`${input}`);
     const firstWord = input.split(" ")[0].toLowerCase();
 
-    if (input.toLowerCase() === 'clear') {
+    if (input.toLowerCase() === 'clear' || input.toLowerCase()==='cls') {
       fakeInput.innerText = '';
       output.innerHTML = '';
       // body.style.overflow='hidden';
@@ -184,15 +225,20 @@ fakeInput.addEventListener('keydown', (e) => {
       appendOutputAnimated(commands['help']);
     }
 else if (input.toLowerCase() === 'resume.img') {
-  const img = document.createElement('img');
-  img.src = './files/resume.png'; // update path/extension to match your converted file
-  img.style.maxWidth = '440px';
-  img.style.maxHeight = '700px';
-  img.style.borderRadius = '6px';
-  img.style.display = 'block';
-  img.style.marginTop = '8px';
-  output.appendChild(img);
-  output.scrollTop = output.scrollHeight;
+    const img = document.createElement('img');
+
+    img.src = './files/resume.png?v=' + Date.now();
+    img.style.maxWidth = '440px';
+    img.style.maxHeight = '700px';
+    img.style.borderRadius = '6px';
+    img.style.display = 'block';
+    img.style.marginTop = '8px';
+
+    output.appendChild(img);
+
+    img.onload = () => {
+        output.scrollTop = 0;
+    };
 }
     else if (commands[input.toLowerCase()]) {
       append(commands[input.toLowerCase()]);
@@ -202,9 +248,9 @@ else if (input.toLowerCase() === 'resume.img') {
       appendOutputAnimated(`Command not found: ${input}`);
     }
 
-    if (['skills','projects','contact','education','certifications'].includes(input.toLowerCase())) {
-      belowdiv(input);
-    }
+    // if (['skills','projects','contact','education','certifications'].includes(input.toLowerCase())) {
+    //   belowdiv(input);
+    // }
 
     const B = document.createElement('div');
     B.style.marginBottom = '10px';
@@ -214,31 +260,59 @@ else if (input.toLowerCase() === 'resume.img') {
 });
 
 function appendOutputAnimated(text) {
+
+    // Progress bar goes in FIRST so it appears above the text
+    const progressLine = document.createElement('div');
+    const totalBars = 20;
+    progressLine.textContent = `[${'-'.repeat(totalBars)}]`;
+    output.appendChild(progressLine);
+
+    // Text line goes in SECOND so it appears below the bar
     const line = document.createElement('div');
     output.appendChild(line);
 
     let i = 0;
-    const interval = setInterval(() => {
-        line.textContent += text.charAt(i);
-        i++;
-        if (i >= text.length) {
-        clearInterval(interval);
-        const spacer = document.createElement('div');
-        spacer.style.marginBottom = '10px';
-        output.appendChild(spacer);
-        output.scrollTop = output.scrollHeight;
-        checkScrollHint();
+
+    function typeNextCharacter() {
+
+        if (i < text.length) {
+
+            line.innerHTML += text.charAt(i);
+            i++;
+            if (text.substring(i, i + 5) === "Live:") {
+
+                const live = document.createElement('span');
+                live.style.color = "yellow";
+                live.textContent = "Live:";
+                line.appendChild(live);
+
+                i += 5;
+
+            }
+
+            const filledBars = Math.floor((i / text.length) * totalBars);
+            progressLine.textContent =
+                `[${'#'.repeat(filledBars).padEnd(totalBars, '-')}]`;
+
+            output.scrollTop = output.scrollHeight;
+
+            setTimeout(typeNextCharacter, speeds[currentSpeed].delay);
+
+        } else {
+
+            progressLine.textContent = `[${'#'.repeat(totalBars)}]`;
+
+            const spacer = document.createElement('div');
+            spacer.style.marginBottom = '10px';
+            output.appendChild(spacer);
+
+            output.scrollTop = output.scrollHeight;
+            checkScrollHint();
+        }
     }
-  }, 50);
-    output.scrollTop = output.scrollHeight;
 
-
-  const h1 = document.createElement('h1');
-  h1.textContent = text;
-  h1.style.fontSize = '3rem';
-  h1.style.fontFamily = 'monospace';
+    typeNextCharacter();
 }
-
 
 const g = document.getElementById('g');
 t.style.opacity = '0';
@@ -286,26 +360,33 @@ function appendOutput(text) {
   output.scrollTop = output.scrollHeight;
 }
 function append(text) {
-  const line = document.createElement('div');
-  output.appendChild(line);
+    const line = document.createElement('div');
+    output.appendChild(line);
 
-  const totalBars = 20;
-  let filledBars = 0;
+    const totalBars = 20;
+    let filledBars = 0;
 
-  // Use same timing as appendOutputAnimated
-  const typingSpeed = 50; // same as animated typing
-  const textDuration = text.length * typingSpeed; // total time to type text
-  const intervalTime = textDuration / totalBars;
+    const typingSpeed = speeds[currentSpeed].delay;
 
-  const interval = setInterval(() => {
-    const progress = '#'.repeat(filledBars).padEnd(totalBars, '-');
-    line.textContent = `[${progress}]`;
-    filledBars++;
+    // Match the progress bar duration to the text animation
+    const textDuration = text.length * typingSpeed;
 
-    if (filledBars > totalBars) {
-      clearInterval(interval);
-    }
-  }, intervalTime);
+    // How often each # should appear
+    // const intervalTime = textDuration / totalBars;
+
+    // const interval = setInterval(() => {
+
+    //     const progress = '#'.repeat(filledBars).padEnd(totalBars, '-');
+
+    //     line.textContent = `[${progress}]`;
+
+    //     filledBars++;
+
+    //     if (filledBars > totalBars) {
+    //         clearInterval(interval);
+    //     }
+
+    // }, intervalTime);
 }
 
 // Resizer
